@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Testeur USB-C — fiche d'aide</title>
+<style>
+@page { size: A4; margin: 0; }
+:root{
+  --ok:#16a34a; --ok-bg:#dcfce7;
+  --ko:#dc2626; --ko-bg:#fee2e2;
+  --gnd:#475569; --vbus:#f59e0b; --cc:#8b5cf6; --d:#2563eb; --sbu:#db2777; --ss:#0891b2;
+  --ink:#0f172a; --muted:#475569; --line:#e2e8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{width:210mm;height:297mm;padding:8mm 9mm 7mm;font-family:Inter,sans-serif;color:var(--ink);font-size:8.4pt;line-height:1.28;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
+.mono{font-family:"JetBrains Mono",monospace}
+svg.i{width:1.25em;height:1.25em;vertical-align:-.25em;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* En-tête */
+header{display:flex;align-items:center;gap:5mm;background:linear-gradient(100deg,#0e7490,#38bdf8);color:#fff;border-radius:4mm;padding:2.4mm 5mm}
+header h1{font-family:"Inter Display",Inter,sans-serif;font-size:19pt;font-weight:800;letter-spacing:-.02em;line-height:1}
+header p{font-size:9.2pt;opacity:.95;margin-top:1.2mm}
+header .plug{flex:none;width:26mm;height:13mm}
+header .side{margin-left:auto;text-align:right;font-size:8pt;line-height:1.35;opacity:.95}
+
+/* Légende */
+.legend{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:2.5mm;margin-top:2.8mm}
+.lg{display:flex;gap:2.5mm;align-items:center;border-radius:3mm;padding:1.5mm 3mm;font-size:7.8pt}
+.lg.ok{background:var(--ok-bg)} .lg.ko{background:var(--ko-bg)} .lg.info{background:#f1f5f9}
+.dot{flex:none;width:7.5mm;height:7.5mm;border-radius:50%;display:grid;place-items:center;color:#fff}
+.dot svg{width:4.6mm;height:4.6mm;fill:none;stroke:#fff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.dot.ok{background:var(--ok)} .dot.ko{background:var(--ko)}
+.lg b{font-size:9.4pt;display:block}
+.sdot{display:inline-grid;place-items:center;width:3.6mm;height:3.6mm;border-radius:50%;vertical-align:-.7mm}
+.sdot svg{width:2.4mm;height:2.4mm;fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.sdot.ok{background:var(--ok)} .sdot.ko{background:var(--ko)}
+
+h2{font-family:"Inter Display",Inter,sans-serif;font-size:11pt;font-weight:800;margin:2.6mm 0 1.3mm;display:flex;align-items:center;gap:2mm}
+h2 .n{display:inline-grid;place-items:center;width:5.4mm;height:5.4mm;border-radius:50%;background:#0e7490;color:#fff;font-size:8.5pt}
+h2 small{font-family:Inter;font-weight:500;font-size:8pt;color:var(--muted);margin-left:1mm}
+
+/* Schéma connecteur */
+.conn-wrap{display:flex;gap:4mm;align-items:center}
+.conn{flex:1;border:1.4mm solid #94a3b8;border-radius:9mm;padding:2mm 6mm;background:#f8fafc;position:relative}
+.row{display:grid;grid-template-columns:repeat(12,1fr);gap:1.1mm}
+.row + .tongue{height:2.2mm;background:#cbd5e1;border-radius:1mm;margin:1mm 2mm}
+.pin{text-align:center;border-radius:1.4mm;color:#fff;padding:.8mm 0 .7mm;line-height:1.05}
+.pin .p{font-family:"JetBrains Mono";font-weight:800;font-size:8pt}
+.pin .s{font-size:6.6pt;font-weight:600;opacity:.95}
+.GND{background:var(--gnd)} .VBUS{background:var(--vbus)} .CC{background:var(--cc)} .D{background:var(--d)} .SBU{background:var(--sbu)} .SS{background:var(--ss)}
+.rowlab{position:absolute;left:-1mm;font-family:"Inter Display";font-weight:800;font-size:9pt;color:#334155;transform:translateX(-100%);}
+.screen{flex:none;width:39mm;background:#1e293b;border-radius:2.5mm;padding:1.6mm;color:#e2e8f0;font-size:7pt}
+.screen .t{background:#67e8f9;color:#0f172a;text-align:center;border-radius:1mm;font-weight:700;margin-bottom:1.2mm}
+.screen .cols{display:grid;grid-template-columns:1fr 3mm 1fr;gap:1mm;font-family:"JetBrains Mono";font-size:6.4pt;line-height:1.45}
+.screen .bar{background:#334155;border:.5mm solid #93c5fd;border-radius:2mm}
+.screen p{font-size:6.6pt;color:#cbd5e1;margin-top:1.2mm;line-height:1.3}
+
+/* Tableau */
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:8pt;line-height:1.24}
+thead th{background:#0f172a;color:#fff;text-align:left;font-weight:700;padding:1.6mm 2mm;font-size:8.2pt}
+thead th:first-child{border-top-left-radius:2mm} thead th:last-child{border-top-right-radius:2mm}
+th.okh{background:var(--ok)} th.koh{background:var(--ko)}
+tbody td{padding:1.35mm 1.8mm;border-bottom:.3mm solid var(--line);vertical-align:middle}
+tbody tr:nth-child(even) td{background:#f8fafc}
+td.sig{border-left:2.2mm solid;font-weight:800;white-space:nowrap}
+td.sig .ic{display:inline-grid;place-items:center;width:5.4mm;height:5.4mm;border-radius:1.5mm;color:#fff;margin-right:1.4mm;vertical-align:middle}
+td.sig .ic svg{width:4.2mm;height:4.2mm;fill:none;stroke:#fff;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+td.pins{font-family:"JetBrains Mono";font-weight:700;font-size:7.6pt;white-space:nowrap}
+td.okc{color:#14532d} td.koc{color:#7f1d1d}
+td.role{color:#1e293b}
+.tag{display:inline-block;border-radius:1mm;padding:0 1.2mm;font-size:6.8pt;font-weight:700;background:#fef3c7;color:#92400e;margin-top:.5mm}
+.tag.n{background:#e0f2fe;color:#075985}
+
+/* Bas de page */
+.bottom{display:grid;grid-template-columns:1.12fr 1fr;gap:3mm;margin-top:1mm}
+.card{border:.35mm solid var(--line);border-radius:3mm;padding:1.4mm 2.6mm;background:#fff}
+.prof{display:grid;grid-template-columns:27mm 1fr;align-items:center;gap:1.5mm;padding:.8mm 0;border-bottom:.3mm dashed var(--line)}
+.prof:last-child{border-bottom:none}
+.prof b{display:block;font-size:8.2pt}
+.prof span{font-size:7.1pt;color:var(--muted)}
+.chips{display:flex;gap:.9mm;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:.6mm;border-radius:5mm;padding:.35mm 1.3mm .35mm .5mm;font-size:6.6pt;font-weight:700;background:#f1f5f9}
+.chip.ok{background:var(--ok-bg);color:#14532d} .chip.ko{background:var(--ko-bg);color:#7f1d1d} .chip.mid{background:#fef3c7;color:#92400e}
+.chip .sdot{width:3mm;height:3mm} .chip .sdot svg{width:2mm;height:2mm}
+.sdot.mid{background:#f59e0b}
+.info{display:grid;grid-template-columns:6mm 1fr;gap:1.8mm;padding:.6mm 0;align-items:start}
+.info .ic{width:6mm;height:6mm;border-radius:2mm;display:grid;place-items:center;color:#fff}
+.info .ic svg{width:4.6mm;height:4.6mm;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.info b{font-size:8.2pt}
+.info p{font-size:7.1pt;color:#334155;line-height:1.3}
+.speeds{display:flex;gap:.8mm;margin-top:.6mm;flex-wrap:wrap}
+.speeds span{font-size:6.5pt;font-weight:700;border-radius:1mm;padding:.2mm 1.1mm;color:#fff}
+footer{margin-top:2mm;display:flex;justify-content:space-between;font-size:6.8pt;color:#64748b}
+</style>
+</head>
+<body>
+
+<!-- Icônes réutilisables -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="cross" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+    <symbol id="bolt" viewBox="0 0 24 24"><path d="M13.5 2.5L5 13.5h6.5l-1 8 8.5-11h-6.5z"/></symbol>
+    <symbol id="ground" viewBox="0 0 24 24"><path d="M12 3v9M5 12h14M8 16h8M10.5 20h3"/></symbol>
+    <symbol id="talk" viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3"/></symbol>
+    <symbol id="key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12H21M18 12v3M15 12v2"/></symbol>
+    <symbol id="laptop" viewBox="0 0 24 24"><rect x="4.5" y="5" width="15" height="10" rx="1.5"/><path d="M2 19h20"/></symbol>
+    <symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/></symbol>
+    <symbol id="screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></symbol>
+    <symbol id="rocket" viewBox="0 0 24 24"><path d="M4 12h6M2.5 16h7M4 8h5"/><path d="M11 5l10 7-10 7z"/></symbol>
+    <symbol id="rocket2" viewBox="0 0 24 24"><path d="M3 5l7 7-7 7M12 5l7 7-7 7"/></symbol>
+    <symbol id="swap" viewBox="0 0 24 24"><path d="M7 4v16M7 4L4 7M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3"/></symbol>
+    <symbol id="gauge" viewBox="0 0 24 24"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/></symbol>
+    <symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5.5 5.5"/></symbol>
+    <symbol id="tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <!-- Dessin d'une prise USB-C -->
+  <svg class="plug" viewBox="0 0 120 64">
+    <rect x="0" y="27" width="34" height="10" rx="5" fill="#0f172a" opacity=".55"/>
+    <rect x="30" y="16" width="38" height="32" rx="7" fill="#0f172a"/>
+    <rect x="66" y="20" width="44" height="24" rx="12" fill="#e2e8f0" stroke="#fff" stroke-width="2"/>
+    <rect x="73" y="28" width="30" height="8" rx="4" fill="#64748b"/>
+    <g fill="#fde047">
+      <rect x="76" y="29.5" width="2" height="5"/><rect x="80" y="29.5" width="2" height="5"/><rect x="84" y="29.5" width="2" height="5"/>
+      <rect x="88" y="29.5" width="2" height="5"/><rect x="92" y="29.5" width="2" height="5"/><rect x="96" y="29.5" width="2" height="5"/>
+    </g>
+  </svg>
+  <div>
+    <h1>Testeur de câble USB-C</h1>
+    <p>Fiche d'aide : comprendre les <b>24 broches</b> et ce que signifient les coches vertes et les croix rouges.</p>
+  </div>
+  <div class="side">Écran type Treedix<br>« Type-C »</div>
+</header>
+
+<div class="legend">
+  <div class="lg ok"><div class="dot ok"><svg><use href="#check"/></svg></div>
+    <div><b>Vert = connecté</b>Le fil existe et le courant passe d'un bout à l'autre du câble sur cette broche.</div></div>
+  <div class="lg ko"><div class="dot ko"><svg><use href="#cross"/></svg></div>
+    <div><b>Rouge = pas de liaison</b>Pas de fil sur cette broche. <u>Ce n'est pas forcément une panne</u> : beaucoup de câbles n'ont pas tous les fils.</div></div>
+  <div class="lg info"><div class="dot" style="background:#0e7490"><svg><use href="#swap"/></svg></div>
+    <div><b>Faces A et B</b>La prise est réversible : 12 broches « A » sur une face, 12 broches « B » sur l'autre, presque toutes en double.</div></div>
+</div>
+
+<h2><span class="n">1</span>Où se trouvent les broches ? <small>vue de face d'une prise USB-C, couleurs = familles de signaux</small></h2>
+<div class="conn-wrap">
+  <div style="flex:1;padding-left:7mm">
+    <div class="conn">
+      <span class="rowlab" style="top:3mm">A</span>
+      <span class="rowlab" style="bottom:3mm">B</span>
+      <div class="row">
+        <div class="pin GND"><div class="p">A1</div><div class="s">GND</div></div>
+        <div class="pin SS"><div class="p">A2</div><div class="s">TX1+</div></div>
+        <div class="pin SS"><div class="p">A3</div><div class="s">TX1−</div></div>
+        <div class="pin VBUS"><div class="p">A4</div><div class="s">VBUS</div></div>
+        <div class="pin CC"><div class="p">A5</div><div class="s">CC1</div></div>
+        <div class="pin D"><div class="p">A6</div><div class="s">D+</div></div>
+        <div class="pin D"><div class="p">A7</div><div class="s">D−</div></div>
+        <div class="pin SBU"><div class="p">A8</div><div class="s">SBU1</div></div>
+        <div class="pin VBUS"><div class="p">A9</div><div class="s">VBUS</div></div>
+        <div class="pin SS"><div class="p">A10</div><div class="s">RX2−</div></div>
+        <div class="pin SS"><div class="p">A11</div><div class="s">RX2+</div></div>
+        <div class="pin GND"><div class="p">A12</div><div class="s">GND</div></div>
+      </div>
+      <div class="tongue"></div>
+      <div class="row">
+        <div class="pin GND"><div class="p">B12</div><div class="s">GND</div></div>
+        <div class="pin SS"><div class="p">B11</div><div class="s">RX1+</div></div>
+        <div class="pin SS"><div class="p">B10</div><div class="s">RX1−</div></div>
+        <div class="pin VBUS"><div class="p">B9</div><div class="s">VBUS</div></div>
+        <div class="pin SBU"><div class="p">B8</div><div class="s">SBU2</div></div>
+        <div class="pin D"><div class="p">B7</div><div class="s">D−</div></div>
+        <div class="pin D"><div class="p">B6</div><div class="s">D+</div></div>
+        <div class="pin CC"><div class="p">B5</div><div class="s">CC2</div></div>
+        <div class="pin VBUS"><div class="p">B4</div><div class="s">VBUS</div></div>
+        <div class="pin SS"><div class="p">B3</div><div class="s">TX2−</div></div>
+        <div class="pin SS"><div class="p">B2</div><div class="s">TX2+</div></div>
+        <div class="pin GND"><div class="p">B1</div><div class="s">GND</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="screen">
+    <div class="t">Type-C</div>
+    <div class="cols">
+      <div>B1<br>B2<br>…<br>B12</div>
+      <div class="bar"></div>
+      <div style="text-align:right">A12<br>A11<br>…<br>A1</div>
+    </div>
+    <p>À l'écran : face <b>B</b> à gauche (B1 en haut), face <b>A</b> à droite (A12 en haut).</p>
+  </div>
+</div>
+
+<h2><span class="n">2</span>Que veut dire le résultat, broche par broche ?</h2>
+<table>
+  <thead><tr>
+    <th style="width:23mm">Signal</th><th style="width:21mm">Broches</th><th>À quoi ça sert</th>
+    <th class="okh" style="width:40mm">✓ Si c'est vert…</th><th class="koh" style="width:50mm">✗ Si c'est rouge…</th>
+  </tr></thead>
+  <tbody>
+    <tr><td class="sig" style="border-color:var(--gnd)"><span class="ic GND"><svg><use href="#ground"/></svg></span>GND</td>
+      <td class="pins">A1 A12<br>B1 B12</td>
+      <td class="role"><b>Masse</b> : le « moins », retour du courant. <span class="tag">Indispensable</span></td>
+      <td class="okc">Le retour du courant est assuré.</td>
+      <td class="koc">Normal sur <b>certaines</b> GND. Si <b>toutes</b> sont rouges : câble HS.</td></tr>
+    <tr><td class="sig" style="border-color:var(--vbus)"><span class="ic VBUS"><svg><use href="#bolt"/></svg></span>VBUS</td>
+      <td class="pins">A4 A9<br>B4 B9</td>
+      <td class="role"><b>Alimentation</b> : le « plus » (5 à 48 V). <span class="tag">Indispensable</span></td>
+      <td class="okc">Le câble peut charger.</td>
+      <td class="koc">Aucune charge. Câble cassé ou mal enfoncé : retester.</td></tr>
+    <tr><td class="sig" style="border-color:var(--cc)"><span class="ic CC"><svg><use href="#talk"/></svg></span>CC1</td>
+      <td class="pins">A5</td>
+      <td class="role"><b>« Dialogue »</b> : sens de la prise et négociation de la puissance (charge rapide).</td>
+      <td class="okc">Charge rapide possible.</td>
+      <td class="koc">C↔C : charge lente ou nulle. USB-A→C : peut être normal.</td></tr>
+    <tr><td class="sig" style="border-color:var(--cc)"><span class="ic CC"><svg><use href="#key"/></svg></span>CC2</td>
+      <td class="pins">B5</td>
+      <td class="role">Second CC ; alimente souvent la <b>puce e-marker</b> du câble.</td>
+      <td class="okc">Ligne présente.</td>
+      <td class="koc"><b>Souvent normal</b> : un seul fil CC suffit.</td></tr>
+    <tr><td class="sig" style="border-color:var(--d)"><span class="ic D"><svg><use href="#laptop"/></svg></span>D+ / D−</td>
+      <td class="pins">A6 A7</td>
+      <td class="role"><b>Données USB 2.0</b> (480 Mb/s) : PC, clavier, photos…</td>
+      <td class="okc">Données USB 2.0 OK.</td>
+      <td class="koc">Avec B6/B7 rouges : <b>câble de charge seule</b>.</td></tr>
+    <tr><td class="sig" style="border-color:var(--d)"><span class="ic D"><svg><use href="#copy"/></svg></span>D+ / D−</td>
+      <td class="pins">B6 B7</td>
+      <td class="role">Copie de A6/A7 (réversibilité), reliée en interne.</td>
+      <td class="okc">Paire présente.</td>
+      <td class="koc"><b>Normal</b> si A6/A7 sont verts.</td></tr>
+    <tr><td class="sig" style="border-color:var(--sbu)"><span class="ic SBU"><svg><use href="#screen"/></svg></span>SBU1/2</td>
+      <td class="pins">A8 B8</td>
+      <td class="role"><b>Canal annexe</b> : vidéo DisplayPort, audio, USB4.</td>
+      <td class="okc">Vidéo possible (avec TX/RX verts).</td>
+      <td class="koc">Pas de vidéo. Normal sur câble USB 2.0.</td></tr>
+    <tr><td class="sig" style="border-color:var(--ss)"><span class="ic SS"><svg><use href="#rocket2"/></svg></span>TX1 / RX1</td>
+      <td class="pins">A2 A3<br>B10 B11</td>
+      <td class="role"><b>Données rapides, voie 1</b> : USB 3 (5–10 Gb/s), vidéo, SSD.</td>
+      <td class="okc">USB rapide possible.</td>
+      <td class="koc">Câble limité à l'USB 2.0 (480 Mb/s).</td></tr>
+    <tr><td class="sig" style="border-color:var(--ss)"><span class="ic SS"><svg><use href="#rocket"/></svg></span>TX2 / RX2</td>
+      <td class="pins">B2 B3<br>A10 A11</td>
+      <td class="role"><b>Données rapides, voie 2</b> : 20 Gb/s, USB4, Thunderbolt.</td>
+      <td class="okc">Avec la voie 1 : câble <b>complet</b>.</td>
+      <td class="koc">Débit et vidéo réduits (si voie 1 verte).</td></tr>
+  </tbody>
+</table>
+
+<div class="bottom">
+  <div>
+    <h2><span class="n">3</span>Profils de câbles fréquents</h2>
+    <div class="card">
+      <div class="prof"><div><b>Charge seule</b><span>recharge lente</span></div>
+        <div class="chips">
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>GND</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>VBUS</span>
+          <span class="chip ko"><span class="sdot ko"><svg><use href="#cross"/></svg></span>CC</span>
+          <span class="chip ko"><span class="sdot ko"><svg><use href="#cross"/></svg></span>D±</span>
+          <span class="chip ko"><span class="sdot ko"><svg><use href="#cross"/></svg></span>SBU</span>
+          <span class="chip ko"><span class="sdot ko"><svg><use href="#cross"/></svg></span>TX/RX</span></div></div>
+      <div class="prof"><div><b>USB-A → USB-C</b><span>charge + données 480 Mb/s</span></div>
+        <div class="chips">
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>GND</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>VBUS</span>
+          <span class="chip mid"><span class="sdot mid"><svg><use href="#check"/></svg></span>CC ?</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>D± (A6/A7)</span>
+          <span class="chip ko"><span class="sdot ko"><svg><use href="#cross"/></svg></span>SBU</span>
+          <span class="chip ko"><span class="sdot ko"><svg><use href="#cross"/></svg></span>TX/RX</span></div></div>
+      <div class="prof"><div><b>USB-C ↔ C « USB 2.0 »</b><span>charge rapide, données lentes</span></div>
+        <div class="chips">
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>GND</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>VBUS</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>CC1</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>D± (A6/A7)</span>
+          <span class="chip ko"><span class="sdot ko"><svg><use href="#cross"/></svg></span>SBU</span>
+          <span class="chip ko"><span class="sdot ko"><svg><use href="#cross"/></svg></span>TX/RX</span></div></div>
+      <div class="prof"><div><b>USB-C ↔ C complet</b><span>données rapides + vidéo</span></div>
+        <div class="chips">
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>GND</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>VBUS</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>CC1</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>D±</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>SBU</span>
+          <span class="chip ok"><span class="sdot ok"><svg><use href="#check"/></svg></span>TX/RX ×2</span></div></div>
+      <p style="font-size:6.8pt;color:var(--muted);margin-top:1mm">Rouge acceptable dans tous les cas : CC2 (B5), D±&nbsp;côté B (B6/B7) et certaines GND.</p>
+    </div>
+  </div>
+
+  <div>
+    <h2><span class="n">4</span>Bon à savoir</h2>
+    <div class="card">
+      <div class="info"><div class="ic" style="background:var(--vbus)"><svg><use href="#bolt"/></svg></div>
+        <div><b>Puissance</b><p>Tout câble C↔C supporte <b>3 A (60 W)</b>. Au-delà (5 A : 100 W, ou 240 W en 48 V) il faut une <b>puce e-marker</b> dans le câble.</p></div></div>
+      <div class="info"><div class="ic" style="background:var(--ss)"><svg><use href="#gauge"/></svg></div>
+        <div><b>Débits</b>
+          <div class="speeds">
+            <span style="background:var(--d)">USB 2.0 · 480 Mb/s</span>
+            <span style="background:#0e7490">USB 5 Gb/s</span>
+            <span style="background:#0e7490">10 Gb/s</span>
+            <span style="background:#155e75">20 Gb/s</span>
+            <span style="background:#164e63">USB4 40–80 Gb/s</span>
+          </div></div></div>
+      <div class="info"><div class="ic" style="background:var(--cc)"><svg><use href="#search"/></svg></div>
+        <div><b>Limites du test</b><p>Il vérifie que les fils <b>existent</b>, pas leur qualité (épaisseur, pertes).</p></div></div>
+      <div class="info"><div class="ic" style="background:var(--sbu)"><svg><use href="#swap"/></svg></div>
+        <div><b>Bien tester</b><p><b>Retourner</b> chaque prise et retester ; bouger le câble : une coche qui clignote = faux contact.</p></div></div>
+      <div class="info"><div class="ic" style="background:var(--gnd)"><svg><use href="#tag"/></svg></div>
+        <div><b>Étiqueter</b><p>Marquer chaque câble testé : « charge », « USB 2 », « rapide/vidéo ».</p></div></div>
+    </div>
+  </div>
+</div>
+
+<footer><span>GND masse · VBUS alimentation · CC dialogue · D± données USB 2.0 · SBU canal annexe · TX/RX données rapides</span><span>Fiche USB-C · v1</span></footer>
+</body>
+</html>
