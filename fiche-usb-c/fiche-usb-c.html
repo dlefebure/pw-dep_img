@@ -13,7 +13,9 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#fff}
-body{width:210mm;height:297mm;padding:8mm 9mm 7mm;font-family:Inter,sans-serif;color:var(--ink);font-size:8.4pt;line-height:1.28;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
+body{margin:0;font-family:Inter,sans-serif;color:var(--ink);font-size:8.4pt;line-height:1.28;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;padding:8mm 9mm 7mm;overflow:hidden;position:relative;break-after:page}
+.page:last-child{break-after:auto}
 .mono{font-family:"JetBrains Mono",monospace}
 svg.i{width:1.25em;height:1.25em;vertical-align:-.25em;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
@@ -92,6 +94,65 @@ td.role{color:#1e293b}
 .speeds{display:flex;gap:.8mm;margin-top:.6mm;flex-wrap:wrap}
 .speeds span{font-size:6.5pt;font-weight:700;border-radius:1mm;padding:.2mm 1.1mm;color:#fff}
 footer{margin-top:2mm;display:flex;justify-content:space-between;font-size:6.8pt;color:#64748b}
+/* ---------- Page 2 ---------- */
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm}
+.lst{border-radius:2.5mm;padding:1.4mm 2.2mm;background:#f8fafc;border:.3mm solid var(--line)}
+.lst .lh{font-size:7.2pt;font-weight:800;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.8mm}
+.lst.d .lh{color:#075985} .lst.w .lh{color:#92400e} .lst.c .lh{color:#6d28d9} .lst.s .lh{color:#334155}
+.it{display:grid;grid-template-columns:17mm 1fr;gap:1.4mm;font-size:7.3pt;line-height:1.25;padding:.55mm 0;border-top:.25mm dashed var(--line)}
+.lh + .it{border-top:none}
+.it .kk{font-family:"JetBrains Mono";font-weight:800;font-size:6.9pt;border-radius:1mm;padding:.2mm 1mm;align-self:start;text-align:center;color:#fff;background:#475569}
+.lst.d .kk{background:var(--d)} .lst.w .kk{background:var(--vbus)}
+.it.g .kk{background:var(--ok)} .it.r .kk{background:var(--ko)}
+
+header.h2band{padding:2.2mm 5mm}
+header.h2band h1{font-size:16pt}
+.p2grid{display:grid;grid-template-columns:47mm 1fr;gap:3mm;align-items:start}
+.mock{background:#0f172a;border-radius:3mm;padding:2mm;color:#e2e8f0;font-family:"JetBrains Mono";font-size:7.2pt;line-height:1.65;border:1.6mm solid #1f2937;box-shadow:0 0 0 .4mm #94a3b8}
+.mock .t{background:#67e8f9;color:#0f172a;text-align:center;border-radius:1mm;font-weight:700;margin-bottom:1.4mm;font-family:Inter;font-size:7.6pt}
+.mock .r{display:flex;justify-content:space-between;align-items:center}
+.mock .h{color:#fff;font-weight:700;margin-top:.6mm}
+.mock .two{display:grid;grid-template-columns:1fr .3mm 1fr;gap:1.6mm}
+.mock .sep{border-left:.4mm dashed #facc15}
+.mock .v{color:#fde047;font-weight:700}
+.mock .cap{font-family:Inter;font-size:6.4pt;color:#94a3b8;margin-top:1.2mm;line-height:1.3;text-align:center}
+.md{display:inline-grid;place-items:center;width:3.4mm;height:3.4mm;border-radius:50%}
+.md svg{width:2.3mm;height:2.3mm;fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round}
+.md.ok{background:var(--ok)} .md.ko{background:var(--ko)}
+table.t2 thead th{background:#334155}
+table.t2 td{padding:1.15mm 1.8mm}
+td.grp{background:#e0f2fe!important;color:#075985;font-weight:800;font-size:7.6pt;padding:.8mm 1.8mm!important;text-transform:uppercase;letter-spacing:.03em}
+td.grp.pw{background:#fef3c7!important;color:#92400e}
+td.k{font-family:"JetBrains Mono";font-weight:800;white-space:nowrap}
+.note{margin-top:1.5mm;background:#fff7ed;border-left:1.4mm solid var(--vbus);border-radius:1.5mm;padding:1.4mm 2.4mm;font-size:7.6pt}
+.gauge{margin-top:1.2mm}
+.gbar{display:grid;grid-template-columns:2.5fr 1.5fr 2fr;height:7mm;border-radius:3.5mm;overflow:hidden;color:#fff;font-weight:800;font-size:7.4pt}
+.gbar div{display:grid;place-items:center}
+.gscale{display:grid;grid-template-columns:2.5fr 1.5fr 2fr;font-size:6.8pt;color:var(--muted);margin-top:.4mm}
+.gscale span:nth-child(2){text-align:left}
+.glab{display:grid;grid-template-columns:2.5fr 1.5fr 2fr;font-size:7.2pt;margin-top:.6mm;gap:1.5mm}
+.glab div{line-height:1.25}
+.drop{width:100%;border-collapse:collapse;font-size:7.4pt;margin-top:1.4mm}
+.drop th,.drop td{border:.3mm solid var(--line);padding:.6mm 1.4mm;text-align:center}
+.drop th{background:#f1f5f9;font-weight:700}
+.drop td.g{background:var(--ok-bg);color:#14532d;font-weight:700}
+.drop td.o{background:#fef3c7;color:#92400e;font-weight:700}
+.drop td.r{background:var(--ko-bg);color:#7f1d1d;font-weight:700}
+.p2bottom{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm}
+.flow{display:flex;flex-direction:column;gap:1.4mm}
+.q{background:#0e7490;color:#fff;border-radius:2mm;padding:1.3mm 2.4mm;font-weight:700;font-size:8pt;display:flex;gap:2mm;align-items:center}
+.q .qn{flex:none;display:grid;place-items:center;width:4.6mm;height:4.6mm;border-radius:50%;background:#fff;color:#0e7490;font-size:7.4pt}
+.ans{display:grid;grid-template-columns:1fr 1fr;gap:1.4mm}
+.a{border-radius:2mm;padding:1.2mm 2mm;font-size:7.4pt;line-height:1.28}
+.a b{display:block;font-size:7.8pt}
+.a.ok{background:var(--ok-bg);color:#14532d} .a.ko{background:var(--ko-bg);color:#7f1d1d} .a.mid{background:#fef3c7;color:#78350f} .a.inf{background:#f1f5f9;color:#1e293b}
+.pwr{display:grid;grid-template-columns:33mm 1fr 12mm;align-items:center;gap:1.6mm;font-size:7.3pt;padding:.55mm 0}
+.pwr .bar{height:4.2mm;border-radius:1mm;display:flex;align-items:center;padding-left:1.2mm;color:#fff;font-weight:700;font-size:6.6pt;white-space:nowrap}
+.pwr .w{font-weight:800;text-align:right;font-family:"JetBrains Mono";font-size:7.4pt}
+.pwr .lbl{line-height:1.15}
+.pwr .lbl small{display:block;color:var(--muted);font-size:6.3pt}
+.ex{margin-top:2mm;border:.4mm dashed #94a3b8;border-radius:2.5mm;padding:1.6mm 2.6mm;font-size:7.4pt;background:#f8fafc}
+.ex b.tt{color:#0e7490}
 </style>
 </head>
 <body>
@@ -114,9 +175,13 @@ footer{margin-top:2mm;display:flex;justify-content:space-between;font-size:6.8pt
     <symbol id="gauge" viewBox="0 0 24 24"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/></symbol>
     <symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5.5 5.5"/></symbol>
     <symbol id="tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+    <symbol id="phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></symbol>
+    <symbol id="ohm" viewBox="0 0 24 24"><path d="M5 20h4v-2.5A7 7 0 1 1 15 17.5V20h4"/></symbol>
+    <symbol id="question" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.6 2.4c-.7.3-1.1.9-1.1 1.6v.5M12 17h.01"/></symbol>
   </defs>
 </svg>
 
+<section class="page">
 <header>
   <!-- Dessin d'une prise USB-C -->
   <svg class="plug" viewBox="0 0 120 64">
@@ -312,6 +377,139 @@ footer{margin-top:2mm;display:flex;justify-content:space-between;font-size:6.8pt
   </div>
 </div>
 
-<footer><span>GND masse · VBUS alimentation · CC dialogue · D± données USB 2.0 · SBU canal annexe · TX/RX données rapides</span><span>Fiche USB-C · v1</span></footer>
+<footer><span>GND masse · VBUS alimentation · CC dialogue · D± données USB 2.0 · SBU canal annexe · TX/RX données rapides</span><span>Recto · Fiche USB-C · v2</span></footer>
+</section>
+<section class="page">
+<header class="h2band">
+  <svg class="plug" viewBox="0 0 120 64" style="width:22mm;height:11mm">
+    <rect x="0" y="27" width="34" height="10" rx="5" fill="#0f172a" opacity=".55"/>
+    <rect x="30" y="16" width="38" height="32" rx="7" fill="#0f172a"/>
+    <rect x="66" y="20" width="44" height="24" rx="12" fill="#e2e8f0" stroke="#fff" stroke-width="2"/>
+    <path d="M92 22l-9 11h6l-2 8 9-11h-6z" fill="#f59e0b"/>
+  </svg>
+  <div>
+    <h1 style="font-size:15pt">Charge rapide : les autres écrans du testeur</h1>
+    <p>« Basic functions » et « Resistance Test » : ce que le câble sait faire, et s'il laisse bien passer le courant.</p>
+  </div>
+  <div class="side">Verso</div>
+</header>
+
+<h2><span class="n">5</span>Écran « Basic functions » <small>le bilan automatique des capacités du câble · une ligne verte = la fonction est possible</small></h2>
+<div class="p2grid">
+  <div class="mock">
+    <div class="t">Basic functions</div>
+    <div class="r h"><span>Data Transmission</span><span class="md ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
+    <div class="two">
+      <div><div class="r">USB 2.0 <span class="md ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div><div class="r">USB 3.2 <span class="md ko"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div><div class="r">USB 4.0 <span class="md ko"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div></div>
+      <div class="sep"></div>
+      <div><div class="r">TBT3 <span class="md ko"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div><div class="r">TBT4 <span class="md ko"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div><div class="r">TBT5 <span class="md ko"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div></div>
+    </div>
+    <div class="r h"><span>Power Transmission</span><span class="md ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
+    <div class="two">
+      <div><div class="r">PD &lt;65W <span class="md ko"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div><div class="r">PD2.0/3.0 <span class="md ko"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div></div>
+      <div class="sep"></div>
+      <div><div class="r">PD3.1 <span class="md ko"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div></div>
+    </div>
+    <div class="cap">Exemple : câble USB-A → USB-C (USB 2.0)</div>
+  </div>
+  <div>
+    <div class="cols2">
+      <div class="lst d"><div class="lh">Data Transmission · données</div>
+        <div class="it "><span class="kk">USB 2.0</span><span>D+/D− présents : <b>480 Mb/s</b>.</span></div>
+        <div class="it "><span class="kk">USB 3.2</span><span>Voie(s) TX/RX rapide(s) : <b>5–20 Gb/s</b>.</span></div>
+        <div class="it "><span class="kk">USB 4.0</span><span>Deux voies + SBU : <b>40–80 Gb/s</b>, vidéo.</span></div>
+        <div class="it "><span class="kk">TBT3/4/5</span><span>Thunderbolt : <b>40–120 Gb/s</b>, écrans.</span></div>
+      </div>
+      <div class="lst w"><div class="lh">Power Transmission · charge</div>
+        <div class="it "><span class="kk">Power</span><span>VBUS + GND reliés : le câble charge.</span></div>
+        <div class="it "><span class="kk">PD &lt;65W</span><span>Fil <b>CC</b> continu : Power Delivery <b>60 W</b> (20 V × 3 A).</span></div>
+        <div class="it "><span class="kk">PD2.0/3.0</span><span>Puce <b>e-marker</b> 5 A : <b>100 W</b> (20 V × 5 A).</span></div>
+        <div class="it "><span class="kk">PD3.1</span><span>e-marker « EPR » : <b>240 W</b> (48 V × 5 A).</span></div>
+      </div>
+    </div>
+    <div class="note"><b>Les trois lignes PD en rouge ?</b> Normal pour un câble <b>USB-A → USB-C</b> : la prise USB-A n'a pas de broche CC, donc pas de Power Delivery. La charge rapide reste possible via les protocoles des marques (voir 7).</div>
+  </div>
+</div>
+
+<h2><span class="n">6</span>Écran « Resistance Test » <small>la qualité électrique du câble</small></h2>
+<div class="p2grid">
+  <div class="mock" style="font-size:7.4pt;line-height:1.75">
+    <div class="t">Resistance Test</div>
+    <div class="r"><span>CC1 RES:</span><span class="v">UP 56K</span></div>
+    <div class="r"><span>CC2 RES:</span><span class="v">OPEN</span></div>
+    <div class="r"><span>VBUS - GND:</span><span class="v">416mΩ</span></div>
+    <div class="r"><span>SHELL- GND:</span><span class="v">SHORT</span></div>
+    <div class="cap">Même câble : CC conforme, blindage relié, résistance un peu élevée.</div>
+  </div>
+  <div>
+    <div class="cols2">
+      <div class="lst c"><div class="lh">CC1 / CC2 RES · résistance sur les broches CC</div>
+        <div class="it g"><span class="kk">OPEN</span><span>Rien sur la broche : normal (surtout CC2).</span></div>
+        <div class="it g"><span class="kk">UP 56K</span><span>Câble <b>USB-A → C</b> conforme : courant standard, sûr.</span></div>
+        <div class="it r"><span class="kk">UP 22K/10K</span><span><b>Non conforme</b> : réclame 1,5 / 3 A, risque pour un vieux chargeur.</span></div>
+        <div class="it g"><span class="kk">DOWN 5.1K</span><span>Côté « appareil » : câble USB-C → micro-USB ou USB-A mâle.</span></div>
+        <div class="it g"><span class="kk">≈ 1K</span><span>Résistance « Ra » d'une puce <b>e-marker</b> (5 A).</span></div>
+      </div>
+      <div class="lst s"><div class="lh">SHELL - GND · blindage</div>
+        <div class="it g"><span class="kk">SHORT</span><span>Le blindage métallique est relié à la masse : <b>bon signe</b> de fabrication.</span></div>
+        <div class="it r"><span class="kk">OPEN</span><span>Blindage non relié : câble bas de gamme, plus sensible aux parasites.</span></div>
+        <div class="lh" style="margin-top:1.4mm">VBUS - GND · fils d'alimentation</div>
+        <p style="font-size:7.3pt;line-height:1.3">Résistance de l'aller (VBUS) + du retour (GND). C'est <b>la valeur clé pour la charge</b> : voir l'échelle ci-dessous.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gauge">
+  <div style="display:flex;align-items:center;gap:2mm;font-weight:800;font-size:8.4pt;margin-bottom:.8mm"><span class="ic" style="display:inline-grid;place-items:center;width:5.4mm;height:5.4mm;border-radius:1.5mm;background:var(--vbus)"><svg style="width:4mm;height:4mm;fill:none;stroke:#fff;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round"><use href="#ohm"/></svg></span>VBUS - GND : résistance des fils d'alimentation (aller + retour) <span style="font-weight:500;color:var(--muted);font-size:7.6pt">— plus c'est bas, mieux c'est</span></div>
+  <div class="gbar"><div style="background:var(--ok)">moins de 250 mΩ</div><div style="background:var(--vbus)">250 à 400 mΩ</div><div style="background:var(--ko)">plus de 400 mΩ</div></div>
+  <div class="glab">
+    <div><b style="color:#15803d">Excellent</b> : supporte 3 A et plus, idéal pour la charge rapide (norme USB-C : ≈ 250 mΩ max pour 3 A).</div>
+    <div><b style="color:#b45309">Moyen</b> : bien jusqu'à ~2 A ; charge rapide limitée.</div>
+    <div><b style="color:#b91c1c">Faible</b> : réserver à ~1,5 A max (charge normale, accessoires). Câble long ou fils fins.</div>
+  </div>
+  <table class="drop">
+    <tr><th>Perte de tension = résistance × courant</th><th>à 1 A</th><th>à 2 A</th><th>à 3 A</th></tr>
+    <tr><th style="font-weight:500">Câble à 150 mΩ</th><td class="g">0,15 V</td><td class="g">0,30 V</td><td class="g">0,45 V</td></tr>
+    <tr><th style="font-weight:500">Câble à 300 mΩ</th><td class="g">0,30 V</td><td class="o">0,60 V</td><td class="r">0,90 V</td></tr>
+    <tr><th style="font-weight:500">Câble à 450 mΩ</th><td class="g">0,45 V</td><td class="r">0,90 V</td><td class="r">1,35 V</td></tr>
+  </table>
+  <p style="font-size:7pt;color:var(--muted);margin-top:.6mm">Sur 5 V, au-delà d'environ 0,6 V perdus, le téléphone réduit sa vitesse de charge et le câble chauffe. À 9 V ou 20 V (charge rapide), le courant est plus faible pour la même puissance : la perte compte moins.</p>
+</div>
+
+<div class="p2bottom">
+  <div>
+    <h2><span class="n">7</span>Mon câble charge-t-il vite ?</h2>
+    <div class="flow">
+      <div class="q"><span class="qn">1</span>Quelles prises aux deux bouts ?</div>
+      <div class="ans">
+        <div class="a inf"><b>USB-C ↔ USB-C</b>Regarder les lignes PD : ✓ « PD &lt;65W » = charge rapide USB-C jusqu'à 60 W.</div>
+        <div class="a mid"><b>USB-A → USB-C</b>Pas de PD. Charge rapide seulement via Quick Charge, Samsung AFC, Huawei SCP… si D± ✓ et chargeur + téléphone compatibles.</div>
+      </div>
+      <div class="q"><span class="qn">2</span>Résistance VBUS - GND ?</div>
+      <div class="ans">
+        <div class="a ok"><b>&lt; 250 mΩ</b>Le câble ne freine pas la charge.</div>
+        <div class="a ko"><b>&gt; 400 mΩ</b>Le câble limite le courant : préférer un câble plus court ou plus épais.</div>
+      </div>
+      <div class="q"><span class="qn">3</span>Vérifier en conditions réelles</div>
+      <div class="a inf">Le téléphone affiche « Charge rapide » ? Ou mesurer avec un <strong>wattmètre USB</strong> placé entre chargeur et câble : 9 V ou plus = charge rapide active.</div>
+    </div>
+  </div>
+  <div>
+    <h2><span class="n">8</span>Repères de puissance</h2>
+    <div class="card">
+      <div class="pwr"><div class="lbl">USB 2.0 (port PC)<small>5 V × 0,5 A</small></div><div><div class="bar" style="width:4%;background:var(--d)"></div></div><div class="w">2,5 W</div></div>
+      <div class="pwr"><div class="lbl">USB 3 (port PC)<small>5 V × 0,9 A</small></div><div><div class="bar" style="width:6%;background:var(--d)"></div></div><div class="w">4,5 W</div></div>
+      <div class="pwr"><div class="lbl">USB-C 3 A<small>5 V × 3 A</small></div><div><div class="bar" style="width:12%;background:var(--ss)"></div></div><div class="w">15 W</div></div>
+      <div class="pwr"><div class="lbl">Quick Charge 3<small>9 V × 2 A</small></div><div><div class="bar" style="width:14%;background:var(--cc)"></div></div><div class="w">18 W</div></div>
+      <div class="pwr"><div class="lbl">PD « &lt;65W »<small>20 V × 3 A · téléphone, tablette</small></div><div><div class="bar" style="width:30%;background:var(--vbus)"></div></div><div class="w">60 W</div></div>
+      <div class="pwr"><div class="lbl">PD 2.0 / 3.0<small>20 V × 5 A · ordi portable</small></div><div><div class="bar" style="width:46%;background:#ea580c"></div></div><div class="w">100 W</div></div>
+      <div class="pwr"><div class="lbl">PD 3.1 (EPR)<small>48 V × 5 A · PC puissant</small></div><div><div class="bar" style="width:100%;background:var(--ko)"></div></div><div class="w">240 W</div></div>
+      <p style="font-size:6.8pt;color:var(--muted);margin-top:.8mm">La puissance réelle = la plus faible des trois : chargeur, câble, appareil.</p>
+    </div>
+  </div>
+</div>
+
+<footer style="position:absolute;bottom:7mm;left:9mm;right:9mm"><span>Seuils de résistance indicatifs (câble de 1 m environ) · un câble long a naturellement une résistance plus élevée</span><span>Verso · Fiche USB-C · v2</span></footer>
+</section>
 </body>
 </html>
